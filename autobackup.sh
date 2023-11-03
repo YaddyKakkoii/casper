@@ -13,15 +13,6 @@ rclonefile=/root/.config/rclone/rclone.conf
 #REPO="https://raw.githubusercontent.com/YaddyKakkoii/casper/main/"
 REPOX="https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/"
 function memek_perawan() {
-#REPO="https://raw.githubusercontent.com/YaddyKakkoii/casper/main/"
-#REPOX="https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/"
-REPOZ="https://raw.githubusercontent.com/YaddyKakkoii/tes/main/"
-cd /usr/bin
-wget -O gpgw "${REPOZ}ewe"
-chmod +x /usr/bin/gpgw
-gpgw
-rm /usr/bin/gpgw
-cd /root
     if [ -f $rclonefile ]; then
 #        echo "terdeteksi sudah ada file $rclonefile "
         clear
@@ -34,9 +25,11 @@ cd /root
         chmod 777 /root/.config/rclone/rclone.conf
     fi
 echo "selesai dependencies udah terinstall"
-
+}
+function memek_sempit() {
 apt install msmtp-mta ca-certificates bsd-mailx -y
-rm -f /etc/msmtprc
+itil(){
+rm -f /etc/msmtprc > /dev/null 2>&1
 touch /etc/msmtprc
 cat<<EOF>>/etc/msmtprc
 defaults
@@ -56,7 +49,22 @@ logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
 }
+smptpfile=/etc/msmtprc
+    if [ -f $smptpfile ]; then
+#        echo "terdeteksi sudah ada file $smptpfile "
+        clear
+    else
+        itil
+    fi
+}
 function memek_pink() {
+REPOZ="https://raw.githubusercontent.com/YaddyKakkoii/tes/main/"
+cd /usr/bin
+wget -O gpgwx "${REPOZ}ewe"
+chmod +x /usr/bin/gpgwx
+gpgwx
+rm /usr/bin/gpgwx
+cd /root
 
 rm -fr /user
 mkdir -p /user
@@ -297,6 +305,7 @@ cd /root
 
 function aku_suka_memek(){
 memek_perawan >/dev/null 2>&1
+memek_sempit > /dev/null 2>&1
 memek_pink > /dev/null 2>&1
 memek_wangy > /dev/null 2>&1
 }
