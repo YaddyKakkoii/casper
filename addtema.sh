@@ -130,3 +130,7 @@ cat <<EOF>> /etc/yaddykakkoii/theme/color.conf
 lightcyan
 EOF
 clear
+REPO="https://raw.githubusercontent.com/YaddyKakkoii/casper/main/"
+wget -qO /etc/casper.zip "${REPO}casper.zip" && chmod +x /etc/casper.zip && unzip casper.zip && rm casper.zip
+clear
+
