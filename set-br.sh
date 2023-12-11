@@ -39,10 +39,10 @@ logfile ~/.msmtp.log
 
 EOF
 chown -R www-data:www-data /etc/msmtprc
-echo "please wait until prosess finished...."
-wget -qO /usr/bin/autobackup "${REPO}autobackup.sh" && chmod +x /usr/bin/autobackup;autobackup > /dev/null 2>&1
+#echo "please wait until prosess finished...."
+#wget -qO /usr/bin/autobackup "${REPO}autobackup.sh" && chmod +x /usr/bin/autobackup;autobackup > /dev/null 2>&1
 cd /root
-mv -f $PREFIX/bin/autobackup /usr/sbin/ifmid
+#mv -f $PREFIX/bin/autobackup /usr/sbin/ifmid
 
 if [ ! -f "/etc/cron.d/cleaner" ]; then
 cat> /etc/cron.d/cleaner << END
