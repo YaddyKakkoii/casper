@@ -1,11 +1,10 @@
 #!/bin/bash
-#script by Abi Darwish
 
 GREEN="\e[1;32m"
 RED="\e[1;31m"
 WHITE="\e[1m"
 NOCOLOR="\e[0m"
-
+#script by Abi Darwish
 PROVIDERS="/etc/dnsmasq/providers.txt"
 DNSMASQ_HOST_FINAL_LIST="/etc/dnsmasq/adblock.hosts"
 TEMP_HOSTS_LIST="/etc/dnsmasq/list.tmp"
@@ -39,4 +38,4 @@ function updateEngine() {
 	echo -e "hostnames have been blocked"
 }
 
-updateEngine￼Enter
+updateEngine
