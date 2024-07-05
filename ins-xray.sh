@@ -96,7 +96,7 @@ mkdir -p /home/vps/public_html
 
 # set uuid
 #uuid=$(cat /proc/sys/kernel/random/uuid)
-uuid="yaddykakkoii-tampan-maksimal"
+uuid="yaddykakkoii-ganteng-maksimal"
 # xray config
 cat > /etc/xray/config.json << END
 {
