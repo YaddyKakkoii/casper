@@ -22,8 +22,9 @@ if [ -f /etc/systemd/system/ws-stunnel.service ]; then rm -f /etc/systemd/system
 if [ -f /etc/systemd/system/ws-ovpn.service ]; then rm -f /etc/systemd/system/ws-ovpn.service; fi
 if [ -f /etc/systemd/system/sshws.service ]; then rm -f /etc/systemd/system/sshws.service; fi
 if [ -f /usr/bin/proxy3.js ]; then rm -f /usr/bin/proxy3.js; fi
+echo -e "${NC} Mendownload file yang dibutuhkan...!!"
 cd
-wget -q -O /usr/bin/proxy3.js ${REPO}proxy3.js
+wget -O /usr/bin/proxy3.js ${REPO}proxy3.js
 chmod +x /usr/bin/proxy3.js
 
 #127.0.01 1194 2086 
@@ -56,6 +57,8 @@ systemctl enable ws-ovpn
 systemctl start ws-ovpn
 systemctl restart ws-ovpn
 
+echo -e "${NC} instalasi Service openvpn WEBSOCKET done ..!!"
+
 wget -O /usr/local/bin/ws-stunnel ${REPO}ws-stunnel.py
 chmod +x /usr/local/bin/ws-stunnel
 
@@ -83,6 +86,8 @@ END
 systemctl enable ws-stunnel.service
 systemctl start ws-stunnel.service
 systemctl restart ws-stunnel.service
+
+echo -e "${NC} instalasi Service ssh WEBSOCKET done ..!!"
 
 wget -O /usr/local/bin/ws-dropbear ${REPO}ws-dropbear.py
 chmod +x /usr/local/bin/ws-dropbear
@@ -112,12 +117,14 @@ systemctl enable ws-dropbear.service
 systemctl start ws-dropbear.service
 systemctl restart ws-dropbear.service
 
+echo -e "${NC} instalasi Service dropbear WEBSOCKET done ..!!"
+
 #127.0.0.1 22 8880 2082
 wget -O /usr/local/bin/ws-openssh ${REPO}ws-openssh.py
 chmod +x /usr/local/bin/ws-openssh
 
 # Installing Service OPENSSH Over Websocket Python By YaddyKakkoii
-wget -q -O /usr/local/bin/edu-ssh https://raw.githubusercontent.com/muhammadnoor674/anuy/main/proxy-template.py
+wget -O /usr/local/bin/edu-ssh https://raw.githubusercontent.com/muhammadnoor674/anuy/main/proxy-template.py
 chmod +x /usr/local/bin/edu-ssh
 # Installing Service
 cat > /etc/systemd/system/ws-openssh.service << END
@@ -144,11 +151,11 @@ systemctl enable ws-openssh.service
 systemctl start ws-openssh.service
 systemctl restart ws-openssh.service
 
-wget -O edu-ssh https://raw.githubusercontent.com/muhammadnoor674/anuy/main/proxy-template.py
-chmod +x /usr/local/bin/edu-ssh
+echo -e "${NC} instalasi Service openssh WEBSOCKET done ..!!"
+
 #sed -i "/SSH Websocket/c\   - SSH Websocket           : $portsshws [ON]" /root/log-install.txt
 
-wget -q -O /usr/bin/ssh-wsenabler ${REPO}ssh-wsenabler
+wget -O /usr/bin/ssh-wsenabler ${REPO}ssh-wsenabler
 chmod +x /usr/bin/ssh-wsenabler
 cat <<EOF > /etc/systemd/system/sshws.service
 [Unit]
@@ -186,6 +193,5 @@ echo -e "$COLOR1┌────────────────────�
 echo -e "$COLOR1 ${NC}                ${WH}• YADDY KAKKOII MAGELANG •${NC}                 $COLOR1 $NC"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "${NC}SSH WEBSOCKET TELAH AKTIF...!!"
-clear
 
 sleep 3
