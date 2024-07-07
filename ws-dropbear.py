@@ -3,18 +3,16 @@ import socket, threading, thread, select, signal, sys, time, getopt
 
 # Listen
 LISTENING_ADDR = '0.0.0.0'
-if sys.argv[1:]:
-  LISTENING_PORT = sys.argv[1]
-else:
-  LISTENING_PORT = 700
-#Pass
+LISTENING_PORT = sys.argv[1]
+
+# Pass
 PASS = ''
 
 # CONST
 BUFLEN = 4096 * 4
 TIMEOUT = 60
-DEFAULT_HOST = '127.0.0.1:69'
-RESPONSE = 'HTTP/1.1 101 Switching Protocol <font color="lime">Yaddy Kakkoii </font><font color="yellow">Ganteng </font><font color="red">Maksimal</font>\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: foo\r\n\r\n'
+DEFAULT_HOST = '127.0.0.1:109'
+RESPONSE = 'HTTP/1.1 101 Switching Protocol DROPBEAR <font color="lime">Yaddy Kakkoii </font><font color="yellow">Ganteng </font><font color="red">Maksimal</font>\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: foo\r\n\r\n'
 
 class Server(threading.Thread):
     def __init__(self, host, port):
