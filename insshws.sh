@@ -22,16 +22,18 @@ if [ -f /etc/systemd/system/ws-stunnel.service ]; then rm -f /etc/systemd/system
 if [ -f /etc/systemd/system/ws-ovpn.service ]; then rm -f /etc/systemd/system/ws-ovpn.service; fi
 if [ -f /etc/systemd/system/sshws.service ]; then rm -f /etc/systemd/system/sshws.service; fi
 if [ -f /usr/bin/proxy3.js ]; then rm -f /usr/bin/proxy3.js; fi
+
 echo -e "${NC} Mendownload file yang dibutuhkan...!!"
 cd
-wget -O /usr/bin/proxy3.js ${REPO}proxy3.js
+#   wget -O /usr/bin/proxy3.js "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/proxy3.js"
+wget -qO /usr/bin/proxy3.js ${REPO}proxy3.js
 chmod +x /usr/bin/proxy3.js
 
 #127.0.01 1194 2086 
 # OVPN Over Websocket Python By YaddyKakkoii & Proxy For Edukasi & Imclass
-wget -O /usr/local/bin/ws-ovpn ${REPO}ws-ovpn.py
+wget -qO /usr/local/bin/ws-ovpn ${REPO}ws-ovpn.py
 chmod +x /usr/local/bin/ws-ovpn
-
+#   wget -O /usr/local/bin/ws-ovpn "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/ws-ovpn.py"
 # Installing Service
 cat > /etc/systemd/system/ws-ovpn.service << END
 [Unit]
@@ -57,9 +59,13 @@ systemctl enable ws-ovpn
 systemctl start ws-ovpn
 systemctl restart ws-ovpn
 
-echo -e "${NC} instalasi Service openvpn WEBSOCKET done ..!!"
+systemctl status ws-ovpn
+service status ws-ovpn
 
-wget -O /usr/local/bin/ws-stunnel ${REPO}ws-stunnel.py
+echo -e "${NC} instalasi Service openvpn WEBSOCKET done ..!!"
+sleep 2
+
+wget -qO /usr/local/bin/ws-stunnel ${REPO}ws-stunnel.py
 chmod +x /usr/local/bin/ws-stunnel
 
 #127.0.0.1 69 700
@@ -88,8 +94,8 @@ systemctl start ws-stunnel.service
 systemctl restart ws-stunnel.service
 
 echo -e "${NC} instalasi Service ssh WEBSOCKET done ..!!"
-
-wget -O /usr/local/bin/ws-dropbear ${REPO}ws-dropbear.py
+sleep 1
+wget -qO /usr/local/bin/ws-dropbear ${REPO}ws-dropbear.py
 chmod +x /usr/local/bin/ws-dropbear
 
 #127.0.01 109 8443
@@ -118,14 +124,13 @@ systemctl start ws-dropbear.service
 systemctl restart ws-dropbear.service
 
 echo -e "${NC} instalasi Service dropbear WEBSOCKET done ..!!"
-
+sleep 1
 #127.0.0.1 22 8880 2082
-wget -O /usr/local/bin/ws-openssh ${REPO}ws-openssh.py
+wget -qO /usr/local/bin/ws-openssh ${REPO}ws-openssh.py
 chmod +x /usr/local/bin/ws-openssh
 
 # Installing Service OPENSSH Over Websocket Python By YaddyKakkoii
-wget -O /usr/local/bin/edu-ssh https://raw.githubusercontent.com/muhammadnoor674/anuy/main/proxy-template.py
-chmod +x /usr/local/bin/edu-ssh
+
 # Installing Service
 cat > /etc/systemd/system/ws-openssh.service << END
 [Unit]
@@ -152,10 +157,10 @@ systemctl start ws-openssh.service
 systemctl restart ws-openssh.service
 
 echo -e "${NC} instalasi Service openssh WEBSOCKET done ..!!"
-
+sleep 1
 #sed -i "/SSH Websocket/c\   - SSH Websocket           : $portsshws [ON]" /root/log-install.txt
 
-wget -O /usr/bin/ssh-wsenabler ${REPO}ssh-wsenabler
+wget -qO /usr/bin/ssh-wsenabler ${REPO}ssh-wsenabler
 chmod +x /usr/bin/ssh-wsenabler
 cat <<EOF > /etc/systemd/system/sshws.service
 [Unit]
@@ -188,6 +193,7 @@ echo -e "PORT DROPBEAR STUNNEL   : 2095"
 echo -e "PORT OVPN STUNNEL  : 2086"
 echo -e "==============================="
 echo ""
+sleep 1
 yellow "SSH WEBSOCKET TELAH AKTIF...!!"
 echo -e "$COLOR1┌────────────────────── ${WH}BY${NC} ${COLOR1}───────────────────────┐${NC}"
 echo -e "$COLOR1 ${NC}                ${WH}• YADDY KAKKOII MAGELANG •${NC}                 $COLOR1 $NC"
