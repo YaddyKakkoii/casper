@@ -2,21 +2,24 @@
 REPO="https://raw.githubusercontent.com/YaddyKakkoii/casper/main/"
 REPOX="https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/"
 export DEBIAN_FRONTEND=noninteractive
-MYIP=$(curl -sS ipv4.icanhazip.com);
-MYIP2="s/xxxxxxxxx/$MYIP/g";
-NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
-#organization=phreaker
-#commonname=yaddykakkoii
-#email=yadicakepp@gmail.com
+#MYIP=$(wget -qO- ipinfo.io/ip);
+MYIP=$(curl -sS ipv4.icanhazip.com);
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+ETHO=$(ip -o $ETHO -4 route show to default | awk '{print $5}');
+source /etc/os-release
+#detail nama perusahaan
 country=ID
 state=Indonesia
 locality=Jakarta
-organization=none
-organizationalunit=none
-commonname=none
-email=none
+organization=phreaker
+organizationalunit=PHREAKER
+commonname=yaddykakkoii
+email=yadicakepp@gmail.com
+# simple password minimal
+#wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/muhammadnoor674/anuy/main/password"
+#curl -sS https://raw.githubusercontent.com/YaddyKakkoii/casper/main/password | openssl aes-256-cbc -d -a -pass pass:scvps07gg -pbkdf2 > /etc/pam.d/common-password
 curl -sS ${REPO}password | openssl aes-256-cbc -d -a -pass pass:scvps07gg -pbkdf2 > /etc/pam.d/common-password
 chmod +x /etc/pam.d/common-password
 cd /root
@@ -48,8 +51,13 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 cd /root
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/sites-available/default
+# install
+apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
+#apt --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
+# install webserver nginx
+apt -y install nginx
+if [[ -e /etc/nginx/sites-enabled/default ]]; then rm /etc/nginx/sites-enabled/default; fi
+if [[ -e /etc/nginx/sites-available/default ]]; then rm /etc/nginx/sites-available/default; fi
 curl ${REPO}nginx.conf > /etc/nginx/nginx.conf
 curl ${REPO}vps.conf > /etc/nginx/conf.d/vps.conf
 sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
@@ -62,24 +70,51 @@ cd /home/vps/public_html
 wget -O /home/vps/public_html/index.html "${REPO}index.html"
 /etc/init.d/nginx restart
 cd /root
+
+# install badvpn
 wget -O /usr/sbin/badvpn "${REPO}badvpn" >/dev/null 2>&1
 chmod +x /usr/sbin/badvpn > /dev/null 2>&1
 wget -q -O /etc/systemd/system/badvpn1.service "${REPO}badvpn1.service" >/dev/null 2>&1
 wget -q -O /etc/systemd/system/badvpn2.service "${REPO}badvpn2.service" >/dev/null 2>&1
 wget -q -O /etc/systemd/system/badvpn3.service "${REPO}badvpn3.service" >/dev/null 2>&1
-systemctl disable badvpn1 
-systemctl stop badvpn1 
+
+systemctl disable badvpn1
+systemctl stop badvpn1
 systemctl enable badvpn1
-systemctl start badvpn1 
-systemctl disable badvpn2 
-systemctl stop badvpn2 
+systemctl start badvpn1
+systemctl restart badvpn1
+
+systemctl disable badvpn2
+systemctl stop badvpn2
 systemctl enable badvpn2
-systemctl start badvpn2 
-systemctl disable badvpn3 
-systemctl stop badvpn3 
+systemctl start badvpn2
+systemctl restart badvpn2
+
+systemctl disable badvpn3
+systemctl stop badvpn3
 systemctl enable badvpn3
 systemctl start badvpn3
+systemctl restart badvpn3
+
+function alterbadvpn() {
+sed -i '$ i\screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7100 --max-clients 500' /etc/rc.local
+sed -i '$ i\screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7200 --max-clients 500' /etc/rc.local
+sed -i '$ i\screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7300 --max-clients 500' /etc/rc.local
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7100 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7200 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7300 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7400 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7500 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7600 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7700 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7800 --max-clients 500
+screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7900 --max-clients 500
+}
+#alterbadvpn
 cd /root
+# setting port ssh
+#sed -i 's/Port 22/#Port 22/g' /etc/ssh/sshd_config
+if ! grep -q '58080' /etc/ssh/sshd_config;then
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 500' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 40000' /etc/ssh/sshd_config
@@ -87,16 +122,78 @@ sed -i '/Port 22/a Port 51443' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 58080' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 53' /etc/ssh/sshd_config
 sed -i '/Port 22/a Port 22' /etc/ssh/sshd_config
-/etc/init.d/ssh restart
+fi
 cd /root
+# install dropbear
+apt -y install dropbear
+if ! grep -q '69' /etc/default/dropbear;then
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_EXTRA_ARGS=/#DROPBEAR_EXTRA_ARGS=/g' /etc/default/dropbear
 sed -i '/arguments for Dropbear/a DROPBEAR_EXTRA_ARGS="-p 50000 -p 109 -p 110 -p 69"' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
+fi
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
+# install squid
+cd /root
+MYIP=$(curl -sS ipv4.icanhazip.com);
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+apt -y install squid3
+wget -O /etc/squid/squid.conf "${REPO}squid3.conf"
+sed -i $MYIP2 /etc/squid/squid.conf
+#MYIP=$(curl -sS ipv4.icanhazip.com);MYIP2="s/xxxxxxxxx/$MYIP/g";sed -i $MYIP2 squid3.conf;
+#install sslh
+#apt-get update
+cat << EOF | sudo debconf-set-selections
+# Run sslh:
+sslh    sslh/inetd_or_standalone        select  standalone
+EOF
+apt install sslh -y
+cd /etc/default/
+if [[ -e /etc/default/sslh ]]; then rm /etc/default/sslh; fi
+wget ${REPO}sslh
+cd /root
+# Installing Service
+cat > /etc/systemd/system/sslh.service << END
+[Unit]
+Description=SSLH Server By Yaddyganteng
+Documentation=https://t.me/Crystalllz
+After=syslog.target network-online.target
+
+[Service]
+User=root
+NoNewPrivileges=true
+ExecStart=/usr/sbin/sslh --foreground --user root --listen 0.0.0.0:8443 --ssl 127.0.0.1:443 --ssh 127.0.0.1:22 --http 127.0.0.1:8442
+Restart=on-failure
+RestartPreventExitStatus=23
+LimitNPROC=10000
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target
+END
+
+systemctl daemon-reload
+systemctl enable sslh
+systemctl start sslh
+systemctl restart sslh.service
+
+#sshws accept 443/444 connect 2053/22/700
+#dropbear accept 777,222/8443,8880 connect 22/109 | 143,109,110,69
+#ovpn accept 442/990 connect 1194/1194
+#DAEMON_OPTS="--user sslh --listen 0.0.0.0:443 / 0.0.0.0:2093 
+# --ssh 127.0.0.1:22 /  --ssh 127.0.0.1:389 / --ssh 127.0.0.1:109 
+#  --ssl 127.0.0.1:109 /--ssl 127.0.0.1:443 /--ssl 127.0.0.1:445 / --ssl 127.0.0.1:447 / --ssl 127.0.0.1:777
+#   --openvpn 127.0.0.1:1194 /   --openvpn 127.0.0.1:3268 3128
+#    --http 127.0.0.1:8880 8443
+#[stunnelws] accept = 443 connect = 127.0.0.1:2053
+#[dropbear] accept = 222 connect = 127.0.0.1:22
+#[dropbear] accept = 777 connect = 127.0.0.1:22
+#[openvpn] accept = 442 connect = 127.0.0.1:1194
+
+# install stunnel
 cd /root
 apt update -y && apt install stunnel4 -y
 cat > /etc/stunnel/stunnel.conf <<-END
@@ -145,6 +242,8 @@ chown root:root /swapfile
 chmod 0600 /swapfile >/dev/null 2>&1
 swapon /swapfile >/dev/null 2>&1
 sed -i '$ i\/swapfile      swap swap   defaults    0 0' /etc/fstab
+# install fail2ban
+apt -y install fail2ban
 function bledos(){
 clear
 echo; echo 'Installing DOS-Deflate 0.6'; echo
@@ -167,18 +266,18 @@ echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 }
 if [ -d '/usr/local/ddos' ]; then
-	echo; echo; echo "Please un-install the previous version first"
-	#exit 0
-	clear
+    echo; echo; echo "Please un-install the previous version first"
+    #exit 0
+    clear
 else
-	mkdir /usr/local/ddos
+    mkdir /usr/local/ddos
     bledos
 fi
 echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 wget -O /etc/issue.net "${REPOX}issue.net"
 wget ${REPO}bbr.sh && chmod +x bbr.sh && ./bbr.sh
-function blokirtorrent(){
+function blokirtorrent() {
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
 iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP
@@ -195,7 +294,7 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 }
-# blokirtorrent
+blokirtorrent
 cd /usr/bin
 wget -O issue "${REPOX}issue.net"
 wget -O speedtest "${REPO}speedtest_cli.py"
@@ -204,12 +303,6 @@ chmod +x issue
 chmod +x speedtest
 chmod +x xp
 cd /root
-
-cat> /etc/cron.d/ifmid << END
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-1 19 * * * root /usr/sbin/ifmid
-END
 
 #if [ ! -f "/etc/cron.d/xp_otm" ]; then
 cat> /etc/cron.d/xp_otm << END
@@ -245,6 +338,29 @@ service cron start >/dev/null 2>&1
 
 cd /root
 chown -R www-data:www-data /home/vps/public_html
+/etc/init.d/nginx restart
+/etc/init.d/openvpn restart
+/etc/init.d/cron restart
+/etc/init.d/ssh restart
+/etc/init.d/dropbear restart
+/etc/init.d/fail2ban restart
+/etc/init.d/stunnel4 restart
+/etc/init.d/vnstat restart
+/etc/init.d/squid restart
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7100 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7200 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7300 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7400 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7500 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7600 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7700 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7800 --max-clients 500
+#screen -dmS badvpn badvpn --listen-addr 127.0.0.1:7900 --max-clients 500
+#history -c
+#echo "unset HISTFILE" >> /etc/profile
+#Install Edu insshws
+#echo "0 0 * * * root clear-log && reboot" >> /etc/crontab
+#echo "0 0 * * * root xp" >> /etc/crontab
 
 rm -f /root/key.pem
 rm -f /root/cert.pem
@@ -253,3 +369,4 @@ rm -f /root/bbr.sh
 rm -rf /etc/apache2
 
 clear
+#       wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/tools.sh
