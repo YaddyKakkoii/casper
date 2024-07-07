@@ -1,0 +1,10 @@
+if [ "$BASH" ]; then
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+fi
+mesg n || true
+source /etc/enviroment
+clear
+neofetch
+$WEB_SERVER
