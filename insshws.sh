@@ -59,8 +59,6 @@ systemctl enable ws-ovpn
 systemctl start ws-ovpn
 systemctl restart ws-ovpn
 
-systemctl status ws-ovpn
-service status ws-ovpn
 
 echo -e "${NC} instalasi Service openvpn WEBSOCKET done ..!!"
 sleep 2
