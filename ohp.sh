@@ -50,11 +50,9 @@ if [[ $openvpnohp == "running" ]]; then systemctl stop openvpn-ohp.service; fi
 clear
 cd
 # Download File Ohp
-wget https://github.com/lfasmpao/open-http-puncher/releases/download/0.1/ohpserver-linux32.zip
-unzip ohpserver-linux32.zip
-chmod +x ohpserver
-cp ohpserver /usr/local/bin/ohpserver
-/bin/rm -rf ohpserver*
+wget -qO /usr/local/bin/ohpserver "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/ohp"
+chmod +x /usr/local/bin/ohpserver
+
 # SSH OHP Port 8181 buat Service Untuk ssh OHP 
 cat > /etc/systemd/system/ssh-ohp.service << END
 [Unit]
