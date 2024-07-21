@@ -47,13 +47,12 @@ sudo apt clean
 sudo apt autoclean
 sudo apt autoremove -y
 #wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/fixnginxoff.sh; bash fixnginxoff.sh; rm fixnginxoff.sh
-
-wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/ins-xray.sh; bash ins-xray.sh; rm ins-xray.sh
-cd /root
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/fixtema.sh; bash fixtema.sh; rm fixtema.sh
 cd /root
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/tools.sh; chmod +x tools.sh; bash tools.sh; rm tools.sh
 clear
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/ins-xray.sh; bash ins-xray.sh; rm ins-xray.sh
+cd /root
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/ohp.sh && chmod +x ohp.sh && ./ohp.sh
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/insshws.sh && chmod +x insshws.sh && ./insshws.sh
