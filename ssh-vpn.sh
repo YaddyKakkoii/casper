@@ -138,14 +138,18 @@ fi
 /etc/init.d/dropbear restart
 # install squid
 cd /root
+function install_squid() {
 MYIP=$(curl -sS ipv4.icanhazip.com);
 MYIP2="s/xxxxxxxxx/$MYIP/g";
 apt -y install squid3
-wget -O /etc/squid/squid.conf "${REPO}squid3.conf"
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/squid3.conf"
 sed -i $MYIP2 /etc/squid/squid.conf
+}
+install_squid
 #MYIP=$(curl -sS ipv4.icanhazip.com);MYIP2="s/xxxxxxxxx/$MYIP/g";sed -i $MYIP2 squid3.conf;
 #install sslh
 #apt-get update
+function install_sslh() {
 cat << EOF | sudo debconf-set-selections
 # Run sslh:
 sslh    sslh/inetd_or_standalone        select  standalone
@@ -153,7 +157,7 @@ EOF
 apt install sslh -y
 cd /etc/default/
 if [[ -e /etc/default/sslh ]]; then rm /etc/default/sslh; fi
-wget ${REPO}sslh
+wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/sslh
 cd /root
 # Installing Service
 cat > /etc/systemd/system/sslh.service << END
@@ -165,7 +169,7 @@ After=syslog.target network-online.target
 [Service]
 User=root
 NoNewPrivileges=true
-ExecStart=/usr/sbin/sslh --foreground --user root --listen 0.0.0.0:8443 --ssl 127.0.0.1:443 --ssh 127.0.0.1:22 --http 127.0.0.1:8442
+ExecStart=/usr/sbin/sslh --foreground --user root --listen 0.0.0.0:443 --ssh 127.0.0.1:22 --ssl 127.0.0.1:109 --openvpn 127.0.0.1:1194 --http 127.0.0.1:8442
 Restart=on-failure
 RestartPreventExitStatus=23
 LimitNPROC=10000
@@ -179,7 +183,8 @@ systemctl daemon-reload
 systemctl enable sslh
 systemctl start sslh
 systemctl restart sslh.service
-
+}
+install_sslh
 #sshws accept 443/444 connect 2053/22/700
 #dropbear accept 777,222/8443,8880 connect 22/109 | 143,109,110,69
 #ovpn accept 442/990 connect 1194/1194
@@ -195,6 +200,7 @@ systemctl restart sslh.service
 
 # install stunnel
 cd /root
+function install_stunnel() {
 apt update -y && apt install stunnel4 -y
 cat > /etc/stunnel/stunnel.conf <<-END
 cert = /etc/stunnel/stunnel.pem
@@ -226,10 +232,11 @@ openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
 cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
+}
+install_stunnel
+
 cd /root
-wget ${REPO}vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
-cd /root
-wget ${REPO}installsl.sh && chmod +x installsl.sh && ./installsl.sh
+wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 cd /root
 wget ${REPO}udp-custom.sh && chmod +x udp-custom.sh && ./udp-custom.sh 2200
 wget ${REPO}lolcat.sh &&  chmod +x lolcat.sh && ./lolcat.sh
@@ -273,9 +280,16 @@ else
     mkdir /usr/local/ddos
     bledos
 fi
-echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
-wget -O /etc/issue.net "${REPOX}issue.net"
+
+if ! grep -q 'Banner /etc/issue.net' /etc/ssh/sshd_config; then
+    echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
+fi
+
+if ! grep -q 'DROPBEAR_BANNER="/etc/issue.net"' /etc/default/dropbear; then
+    sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
+fi
+wget -qO /etc/issue.net "${REPOX}issue.net" && chmod +x /etc/issue.net
+
 wget ${REPO}bbr.sh && chmod +x bbr.sh && ./bbr.sh
 function blokirtorrent() {
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
@@ -296,29 +310,27 @@ netfilter-persistent reload
 }
 blokirtorrent
 cd /usr/bin
-wget -O issue "${REPOX}issue.net"
-wget -O speedtest "${REPO}speedtest_cli.py"
-wget -O xp "${REPOX}xp.sh"
-chmod +x issue
+wget -qO speedtest "${REPO}speedtest_cli.py"
+wget -qO xp "${REPOX}xp.sh"
 chmod +x speedtest
 chmod +x xp
 cd /root
 
-#if [ ! -f "/etc/cron.d/xp_otm" ]; then
+if [ ! -f "/etc/cron.d/xp_otm" ]; then
 cat> /etc/cron.d/xp_otm << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 0 * * * root /usr/bin/xp
 END
-#fi
+fi
 
-#if [ ! -f "/etc/cron.d/bckp_otm" ]; then
+if [ ! -f "/etc/cron.d/bckp_otm" ]; then
 cat> /etc/cron.d/bckp_otm << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 5 * * * root /usr/bin/bottelegram
 END
-#fi
+fi
 
 cat> /etc/cron.d/tendang << END
 SHELL=/bin/sh
@@ -369,4 +381,3 @@ rm -f /root/bbr.sh
 rm -rf /etc/apache2
 
 clear
-#       wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/tools.sh
