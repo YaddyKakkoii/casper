@@ -9,14 +9,15 @@ gem install lolcat
 apt-get install figlet
 sudo apt-get install figlet
 cd /root
+rm -rf /root/lolcat-master/
 git clone https://github.com/busyloop/lolcat
 cd /root/lolcat/bin && gem install lolcat
 cd /root
+rm -rf /root/lolcat/
 git clone https://github.com/xero/figlet-fonts
-mv /root/figlet-fonts/* /usr/share/figlet/
+mv -rf /root/figlet-fonts/* /usr/share/figlet/
 cd /root
-rm /root/figlet-fonts > /dev/null 2>&1
-rm -fr /root/figlet-fonts
 rm -rf /root/figlet-fonts
+rm -fr /root/figlet-fonts
 cd /root
 rm -f lolcat.sh
