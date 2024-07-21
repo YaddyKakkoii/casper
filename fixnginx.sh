@@ -119,6 +119,8 @@ sudo apt autoremove -y
         sleep 3
         exit 1
     fi
+
+
 apt -y --purge remove apache2*
 apt-get purge apache2 -y
 sudo apt clean
@@ -129,6 +131,7 @@ sudo apt autoremove -y
 
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
+
 mv -f /etc/nginx/nginx.conf /etc/nginx/nginx.conf_bak > /dev/null 2>&1
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/nginx.conf" && chmod 777 /etc/nginx/nginx.conf
 mkdir -p /etc/systemd/system/nginx.service.d
@@ -149,6 +152,58 @@ rm /etc/nginx/conf.d/default.conf > /dev/null 2>&1
     fi
 uuid=$(cat /proc/sys/kernel/random/uuid)
 domainn=$(cat /etc/xray/domain)
+
+
+
+
+DF='\e[39m'
+Bold='\e[1m'
+Blink='\e[5m'
+yell='\e[33m'
+red='\e[31m'
+green='\e[32m'
+blue='\e[34m'
+PURPLE='\e[35m'
+cyan='\e[36m'
+Lred='\e[91m'
+Lgreen='\e[92m'
+yellow='\e[93m'
+NC='\e[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+LIGHT='\033[0;37m'
+grenbo="\e[92;1m"
+purple() { echo -e "\\033[35;1m${*}\\033[0m"; }
+tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
+yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
+green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red() { echo -e "\\033[31;1m${*}\\033[0m"; }
+
+mv -f /etc/xray/xray.key /etc/xray/xray.key.backup
+mv -f /etc/xray/xray.crt /etc/xray/xray.crt.backup
+domain=$(cat /etc/xray/domain)
+#random=$(</dev/urandom tr -dc a-z0-9 | head -c5)"
+#domain=sgdo.yaddykakkoii.my.id
+STOPWEBSERVER=$(lsof -i:89 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+#STOPWEBSERVERZ=$(lsof -i:89 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+   STOPWEBSERVERX=$(lsof -i:80 | cut -d' ' -f1 | awk 'NR==2 {print $1}')
+cp -rf /root/.acme.sh /root/.acme.sh.backup
+cp -f /root/.acme.sh /root/.acme.sh.backup2
+    rm -rf /root/.acme.sh
+    mkdir /root/.acme.sh
+systemctl stop $STOPWEBSERVERX
+    systemctl stop $STOPWEBSERVER
+    systemctl stop nginx
+#    systemctl stop haproxy
+    curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+    chmod +x /root/.acme.sh/acme.sh
+#/root/.acme.sh/acme.sh --register-account -m casper@slowapp.cfd
+    /root/.acme.sh/acme.sh --upgrade --auto-upgrade
+    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
+    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+    chmod 777 /etc/xray/xray.key
+sleep 5
 rm -f /etc/nginx/conf.d/vps.conf > /dev/null 2>&1
 rm -f /etc/nginx/conf.d/xray.conf > /dev/null 2>&1
 #rm -f /etc/xray/config.json > /dev/null 2>&1
@@ -199,13 +254,15 @@ Restart=on-abort
 [Install]
 WantedBy=multi-user.target
 EOF
+
+
     echo -e "[ ${green}INFO${NC} ] Starting service $Cek " 
     sleep 2
     systemctl daemon-reload
     systemctl restart $Cek
     echo -e "[ ${green}ok${NC} ] Restarting nginx"
     systemctl restart nginx
-    systemctl restart udpcore
+    systemctl restart udp-custom
 
     auto-set
     systemctl restart xray
