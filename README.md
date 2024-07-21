@@ -9,13 +9,10 @@ apt update -y && apt install -y bzip2 gzip wget init coreutils openssl git scree
 ```
 
 
-#Fix tema ,jika ga berwarna
+# Fix SSH WS OFF
 
 ```
-rm -rf /etc/casper > /dev/null 2>&1 && wget -O /etc/casper.zip "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/casper.zip" && chmod +x /etc/casper.zip && cd /etc && unzip casper.zip && rm casper.zip && menu
+wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/insshws.sh && chmod +x insshws.sh && ./insshws.sh
 ```
 
-
-
-
-efek gabut 🗿
+TINGGAL PASTE AJA COMMAND DI ATAS :v
