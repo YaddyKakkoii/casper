@@ -159,30 +159,7 @@ cd /etc/default/
 if [[ -e /etc/default/sslh ]]; then rm /etc/default/sslh; fi
 wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/sslh
 cd /root
-# Installing Service
-cat > /etc/systemd/system/sslh.service << END
-[Unit]
-Description=SSLH Server By Yaddyganteng
-Documentation=https://t.me/Crystalllz
-After=syslog.target network-online.target
 
-[Service]
-User=root
-NoNewPrivileges=true
-ExecStart=/usr/sbin/sslh --foreground --user root --listen 0.0.0.0:443 --ssh 127.0.0.1:22 --ssl 127.0.0.1:109 --openvpn 127.0.0.1:1194 --http 127.0.0.1:8442
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target
-END
-
-systemctl daemon-reload
-systemctl enable sslh
-systemctl start sslh
-systemctl restart sslh.service
 }
 install_sslh
 #sshws accept 443/444 connect 2053/22/700
