@@ -46,7 +46,7 @@ sed -i "s/yaddyganteng/${domainn}/g" /etc/nginx/conf.d/xray.conf
 mkdir -p /etc/systemd/system/nginx.service.d && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 systemctl daemon-reload
 systemctl restart nginx
-systemctl restart sslh
+systemctl stop sslh
 
 
 
@@ -98,5 +98,5 @@ sed -i "s/yaddyganteng/${domainn}/g" /etc/nginx/conf.d/xray.conf
 mkdir -p /etc/systemd/system/nginx.service.d && printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
 systemctl daemon-reload
 systemctl restart nginx
-systemctl restart sslh
+systemctl stop sslh
 }
