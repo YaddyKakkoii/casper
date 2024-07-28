@@ -161,7 +161,7 @@ wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/sslh
 cd /root
 
 }
-install_sslh
+#install_sslh
 #sshws accept 443/444 connect 2053/22/700
 #dropbear accept 777,222/8443,8880 connect 22/109 | 143,109,110,69
 #ovpn accept 442/990 connect 1194/1194
