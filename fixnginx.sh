@@ -1,4 +1,6 @@
 #!/bin/bash
+
+fordebian(){
 function 3xpurge(){
         apt-get -y remove nginx*
         apt-get -y --purge remove nginx*
@@ -47,10 +49,10 @@ mkdir -p /etc/systemd/system/nginx.service.d && printf "[Service]\nExecStartPost
 systemctl daemon-reload
 systemctl restart nginx
 systemctl stop sslh
+}
 
 
-
-forubuntu(){
+function forubuntu(){
 function 3xpurge(){
         apt-get -y remove nginx*
         apt-get -y --purge remove nginx*
@@ -100,3 +102,4 @@ systemctl daemon-reload
 systemctl restart nginx
 systemctl stop sslh
 }
+forubuntu
