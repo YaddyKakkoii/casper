@@ -4,7 +4,4 @@ if [ -f ~/.bashrc ]; then
 fi
 fi
 mesg n || true
-source /etc/enviroment
-clear
-neofetch
-$WEB_SERVER
+info
