@@ -1,10 +1,11 @@
-# casper
+# casper 
 
-Klonengan casper
-recode dari telegram@caspergaming
+clone casper >> telegram@caspergaming
 
 1.gunakan random domain saat penginstalan
+
 2.silakan ganti domain punyamu sendiri setelah instalasi selesai 
+
 cara install:
 
 ```
