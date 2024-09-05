@@ -10,6 +10,11 @@ cara install:
 ```
 apt update -y && apt install -y bzip2 gzip wget init coreutils openssl git screen curl && wget -O install "https://raw.githubusercontent.com/YaddyKakkoii/casper/main/setup.sh" && chmod +x install && screen -S install ./install
 ```
+# Fix SSH NGINX OFF
+
+```
+wget https://raw.githubusercontent.com/YaddyKakkoii/casper/main/fixnginx.sh && chmod +x fixnginx.sh && ./fixnginx.sh
+```
 
 
 # Fix SSH WS OFF
